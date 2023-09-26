@@ -1,0 +1,32 @@
+#pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul.pagination {
+    list-style: none;
+}
+
+li.page-item {
+    margin: 5px;
+}
+
+a.page-link {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background-color: transparent;
+    color: black;
+}
+a.page-link span {
+    font-size: 1.5rem;
+}
+.active {
+    background-color: #1d1e20 !important;
+    color: white !important;
+}
+
+.disabled {
+    pointer-events: none !important;
+    opacity: 60% !important;
+}

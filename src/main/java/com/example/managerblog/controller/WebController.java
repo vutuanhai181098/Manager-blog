@@ -31,6 +31,15 @@ public class WebController {
         return "web/index";
     }
 
+    @GetMapping("/pages/{pageNumber}")
+    public String getHomePage(Model model, @PathVariable Integer pageNumber){
+        List<CategoryDto> categoryDtos = categoryService.getTopCategory();
+        Page<Blog> blogPage = blogService.getBlogs(pageNumber, 5);
+        model.addAttribute("categoryDtos", categoryDtos);
+        model.addAttribute("pages", blogPage);
+        return "web/index";
+    }
+
     @GetMapping("/search")
     public String getSearchPage(Model model){
         return "/web/search";

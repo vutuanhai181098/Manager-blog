@@ -1,9 +1,13 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{/layout/layout :: layout(~{:: title}, ~{}, ~{:: #content}, ~{:: #js})}">
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{:: #css}, ~{:: #content}, ~{:: #js})}">
 <head>
     <meta charset="UTF-8">
     <title>Kong's Blog</title>
+
+    <th:block id="css">
+        <link rel="stylesheet" href="/css/pagination.css">
+    </th:block>
 </head>
 <body>
 <th:block id="content">
@@ -41,11 +45,41 @@
             </footer>
             <a class="entry-link" th:href="@{/blog/{slug} (slug = ${blog.slug})}"></a>
         </article>
+        <div id="pagination-container">
+            <ul class="pagination"></ul>
+        </div>
     </main>
 </th:block>
 
 <th:block id="js">
+    <script th:inline="javascript">
+        const pages = [[${pages}]];
 
+        function renderPagination(currentPage, totalPage) {
+            const pages = pagination(currentPage, totalPage);
+            let html = `<li class="page-item">
+                <a class="page-link ${currentPage === 1 ? "disabled" : ""}" href="/pages/${currentPage - 1}" aria-label="Previous" onclick="renderPagination(${currentPage - 1}, ${totalPage})">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>`;
+            for (const i of pages) {
+                if(i === "..."){
+                    html += `<li class="page-item"><a class="page-link disabled" href="#">${i}</a></li>`;
+                    continue;
+                }
+                html += `<li class="page-item"><a class="page-link ${currentPage === i ? "active" : ""}" href="/pages/${i}" onclick="renderPagination(${i}, ${totalPage})">${i}</a></li>`
+            }
+            html += `<li class="page-item">
+            <a class="page-link ${currentPage === totalPage ? "disabled" : ""}" href="/pages/${currentPage + 1}" aria-label="Next" onclick="renderPagination(${currentPage + 1}, ${totalPage})">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>`
+
+            $(".pagination").html(html);
+        }
+
+        renderPagination(pages.number + 1, pages.totalPages)
+    </script>
 </th:block>
 </body>
 </html>
