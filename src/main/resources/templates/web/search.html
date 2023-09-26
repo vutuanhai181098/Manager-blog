@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{}, ~{:: #content}, ~{:: #js})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Search | Kong's Blog</title>
+</head>
+<body>
+<th:block id="content">
+    <main class="main">
+        <header class="page-header">
+            <h1>
+                Search
+                <svg xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+            </h1>
+            <div class="post-description">Tìm kiếm bài viết</div>
+            <div class="post-meta"></div>
+        </header>
+        <div id="searchbox">
+            <input
+                    id="searchInput"
+                    autofocus
+                    placeholder="Tìm kiếm bài viết"
+                    type="search"
+                    autocomplete="off"
+            />
+            <ul id="searchResults">
+<!--                <li class="post-entry">-->
+<!--                    <header class="entry-header">-->
+<!--                        Truyền dữ liệu giữa React Components&nbsp;»-->
+<!--                    </header>-->
+<!--                    <a-->
+<!--                            href="./blogdetail.html"-->
+<!--                            aria-label="Truyền dữ liệu giữa React Components"-->
+<!--                    ></a>-->
+<!--                </li>-->
+            </ul>
+        </div>
+    </main>
+</th:block>
+
+<th:block id="js">
+
+</th:block>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--header-->
+<th:block th:fragment="header">
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="/">Kong.dev</a>
+            </div>
+            <ul id="menu">
+                <li>
+                    <a href="/search"><span>Search</span></a>
+                </li>
+                <li>
+                    <a href="/tags"><span>Tags</span></a>
+                </li>
+                <li>
+                    <a href="/projects"><span>Projects</span></a>
+                </li>
+                <li>
+                    <a href="/slides"><span>Slides</span></a>
+                </li>
+                <li>
+                    <a href="/about"><span>About</span></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</th:block>
+</body>
+</html>

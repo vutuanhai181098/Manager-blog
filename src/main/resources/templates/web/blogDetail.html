@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: layout(~{:: title}, ~{}, ~{:: #content}, ~{:: #js})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${blog.title}">Title</title>
+</head>
+<body>
+<th:block id="content">
+    <main class="main">
+        <article class="post-single">
+            <header class="post-header">
+                <h1 class="post-title" th:text="${blog.title}"></h1>
+                <div class="post-meta">
+                    <span th:text="${#temporals.format(blog.publishedAt, 'dd/MM/yyyy')}">01/02/2023</span>
+                </div>
+            </header>
+            <div class="post-content">
+                <p th:text="${blog.content}"></p>
+            </div>
+        </article>
+    </main>
+</th:block>
+
+<th:block id="js">
+
+</th:block>
+</body>
+</html>
