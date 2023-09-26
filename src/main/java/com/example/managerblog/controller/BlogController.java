@@ -21,8 +21,8 @@ public class BlogController {
 
     // Tìm kiếm blog.
     @GetMapping("/search")
-    public ResponseEntity<?> searchBlog(@RequestParam String term){
-        return new ResponseEntity<>(blogService.searchBlog(term), HttpStatus.OK);
+    public ResponseEntity<?> searchBlog(@RequestParam String title){
+        return new ResponseEntity<>(blogService.searchBlog(title), HttpStatus.OK);
     }
 
     // Lấy chi tiết bài viết.

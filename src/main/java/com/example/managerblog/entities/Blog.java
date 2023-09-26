@@ -1,6 +1,7 @@
 package com.example.managerblog.entities;
 
 import com.example.managerblog.entities.core.BaseObject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -47,6 +48,7 @@ public class Blog extends BaseObject {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "blog_category",
             joinColumns = @JoinColumn(name = "blog_id"),

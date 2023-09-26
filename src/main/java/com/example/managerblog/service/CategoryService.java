@@ -11,4 +11,6 @@ public interface CategoryService {
     List<CategoryDto> getTopCategory();
 
     List<Blog> getCategoryByName(String name);
+
+    List<CategoryDto> getCategoriesWithPublishedBlogs(Boolean status);
 }

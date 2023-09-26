@@ -51,7 +51,44 @@
 </th:block>
 
 <th:block id="js">
+    <script>
+        const searchResultsEl = document.getElementById('searchResults');
+        const searchInputEl = document.getElementById('searchInput');
 
+        searchInputEl.addEventListener('keyup', function (){
+            const value = searchInputEl.value;
+            if (value === ''){
+                searchResultsEl.innerHTML = "";
+                return;
+            }
+            fetch(`/api/v1/search?title=${value}`, {
+                method: "GET"
+            })
+                .then(res => res.json())
+                .then(data => {
+                    renderSearchResults(data);
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        })
+
+        function renderSearchResults(data){
+            let html ="";
+            data.forEach(blog => {
+                html += `<li class="post-entry">
+                    <header class="entry-header">
+                        ${blog.title}&nbsp;»
+                    </header>
+                    <a
+                            href="/blog/${blog.slug}"
+                            aria-label="${blog.title}"
+                    ></a>
+                </li>`
+            })
+            searchResultsEl.innerHTML = html;
+        }
+    </script>
 </th:block>
 </body>
 </html>

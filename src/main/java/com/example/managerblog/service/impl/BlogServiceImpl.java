@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class BlogServiceImpl implements BlogService {
     @Autowired
@@ -24,8 +26,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> searchBlog(String term) {
-        return blogRepository.findByTitleContainingIgnoreCase(term);
+    public List<Blog> searchBlog(String title) {
+        List<Blog> blogs = blogRepository.findByTitleContainingIgnoreCase(title);
+        return blogs.stream().filter(Blog::getStatus).collect(Collectors.toList());
     }
 
     @Override

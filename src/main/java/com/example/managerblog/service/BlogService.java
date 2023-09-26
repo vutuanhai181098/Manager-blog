@@ -8,7 +8,7 @@ import java.util.List;
 public interface BlogService {
     Page<Blog> getBlogs(Integer page, Integer pageSize);
 
-    List<Blog> searchBlog(String term);
+    List<Blog> searchBlog(String title);
 
     Blog getDetailBlog(String slug);
 

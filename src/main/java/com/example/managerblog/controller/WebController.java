@@ -38,7 +38,7 @@ public class WebController {
 
     @GetMapping("/tags")
     public String getTagsPage(Model model){
-        List<CategoryDto> categoryDtos = categoryService.getCategoryByBlogs_Status(true);
+        List<CategoryDto> categoryDtos = categoryService.getCategoriesWithPublishedBlogs(true);
         model.addAttribute("categoryDtos", categoryDtos);
         return "web/tags";
     }

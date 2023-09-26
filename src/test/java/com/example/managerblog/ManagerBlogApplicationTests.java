@@ -171,4 +171,10 @@ class ManagerBlogApplicationTests {
         blog.setCategories(null);
         blogRepository.delete(blog);
     }
+
+    @Test
+    void test_find_by_title(){
+        List<Blog> blog = blogRepository.findByTitleContainingIgnoreCase("blog 5");
+        System.out.println(blog.size());
+    }
 }
