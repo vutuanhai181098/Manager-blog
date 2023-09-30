@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="admin-layout(title, css, content, js)">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">Title</title>
+    <!-- Favicon -->
+    <link rel=icon href=img/umaru.PNG>
+
+    <!-- Font google-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!--Font-awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- css all file -->
+    <link rel="stylesheet" href="/css/admin/main.css">
+
+    <!-- CSS -->
+    <th:block th:replace="${css} ?: ~{}"></th:block>
+</head>
+<body>
+    <!--content-->
+    <th:block th:replace="${content} ?: ~{}"></th:block>
+
+    <!--js-->
+    <th:block th:replace="${js} ?: ~{}"></th:block>
+</body>
+</html>

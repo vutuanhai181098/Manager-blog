@@ -1,7 +1,10 @@
 package com.example.managerblog;
 
+import com.example.managerblog.dto.UserDto;
 import com.example.managerblog.entities.*;
+import com.example.managerblog.exception.InvalidCredentialsException;
 import com.example.managerblog.repositories.*;
+import com.example.managerblog.request.LoginRequest;
 import com.github.javafaker.Faker;
 import com.github.slugify.Slugify;
 import org.junit.jupiter.api.Test;
@@ -62,6 +65,18 @@ class ManagerBlogApplicationTests {
         }
     }
 
+    @Test
+    void save_user(){
+        Role adminRole = roleRepository.findByName("ADMIN").orElse(null);
+        assert adminRole != null;
+        User user = new User(
+                "admin",
+                "admin@gmail.com",
+                null,
+                "admin",
+                List.of(adminRole));
+        userRepository.save(user);
+    }
     @Test
     void save_categories() {
         List<Category> categories = List.of(
@@ -176,5 +191,42 @@ class ManagerBlogApplicationTests {
     void test_find_by_title(){
         List<Blog> blog = blogRepository.findByTitleContainingIgnoreCase("blog 5");
         System.out.println(blog.size());
+    }
+
+    @Test
+    void test_checkLoginAdmin(){
+        List<User> users = userRepository.findByRoles_Id(1L);
+        users.forEach(user -> {
+            System.out.println("Name: " + user.getName());
+        });
+
+        List<User> users1 = userRepository.findByRoles_IdJPQL(1L);
+        users1.forEach(user -> {
+            System.out.println("Name: " + user.getName());
+        });
+        List<User> users2 = userRepository.findByRoles_IdNQ(1L);
+        users2.forEach(user -> {
+            System.out.println("Name: " + user.getName());
+        });
+    }
+
+    @Test
+    void test_checkLogin(){
+        String email = "admin@gmail.com";
+        String password = "admin";
+        LoginRequest request = new LoginRequest(email, password);
+        List<User> adminList = userRepository.findByRoles_Id(1L);
+        User user = adminList
+                .stream()
+                .filter(u -> u.getEmail().equals(request.getEmail()) && u.getPassword().equals(request.getPassword()))
+                .findFirst()
+                .orElseThrow(() -> new InvalidCredentialsException("Email or password is incorrect!"));
+        UserDto userDto = UserDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .avatar(user.getAvatar())
+                .build();
+        System.out.println(userDto);
     }
 }
