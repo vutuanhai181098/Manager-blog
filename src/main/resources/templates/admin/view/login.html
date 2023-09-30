@@ -1,41 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{/admin/layout/layout :: admin-layout(~{:: title}, ~{:: #css}, ~{:: #content}, ~{:: #js})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Đăng nhập</title>
+    <title>Login | Kong's Blog</title>
 
-    <th:block id="css">
-        <link rel="stylesheet" href="/css/admin/login.css">
-    </th:block>
+    <!-- Favicon -->
+    <link rel=icon href="/img/favicon/umaru.PNG">
+
+    <!-- Font google-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!--Font-awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="stylesheet" href="/admin/custom/css/login.css">
 </head>
 <body>
-    <th:block id="content">
-        <main class="login-form">
-            <span class="border-line"></span>
-            <form action="/admin/login" method="post">
-                <h1>Kong's Blog</h1>
-                <div class="input_group">
-                    <input type="text" name="email" id="email" required="required">
-                    <label for="email">Email</label>
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <div class="input_group">
-                    <input type="password" name="password" id="password" required="required">
-                    <label for="password">Password</label>
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <div class="show-password">
-                    <input type="checkbox" id="show-password">
-                    <label for="show-password">Show password</label>
-                </div>
-                <button class="btn-login" type="submit">Login</button>
-            </form>
-        </main>
-    </th:block>
+    <main class="login-form">
+        <span class="border-line"></span>
+        <form action="/admin/login" method="post">
+            <h1>Kong's Blog</h1>
+            <div class="input_group">
+                <input type="text" name="email" id="email" required="required">
+                <label for="email">Email</label>
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="input_group">
+                <input type="password" name="password" id="password" required="required">
+                <label for="password">Password</label>
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="show-password">
+                <input type="checkbox" id="show-password">
+                <label for="show-password">Show password</label>
+            </div>
+            <button class="btn-login" type="submit">Login</button>
+        </form>
+    </main>
 
-    <th:block id="js">
-        <script src="/js/admin/login.js"></script>
-    </th:block>
+    <script src="/admin/custom/js/login.js"></script>
 </body>
 </html>

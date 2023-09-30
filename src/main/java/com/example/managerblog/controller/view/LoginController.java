@@ -21,7 +21,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String getLoginPage(){
-        return "/admin/view/login";
+        return "admin/view/login";
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -35,6 +35,6 @@ public class LoginController {
     public String getAdminPage(Model model, HttpSession session){
         UserDto userDto = (UserDto) session.getAttribute("user");
         model.addAttribute("user", userDto);
-        return "/admin/view/home-page";
+        return "admin/view/home-page";
     }
 }
