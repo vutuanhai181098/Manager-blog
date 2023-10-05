@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new InvalidCredentialsException("Email or password is incorrect!"));
         return userMapper.mapToDto(user);
     }
+
+    @Override
+    public long countMember() {
+        return userRepository.count();
+    }
 }

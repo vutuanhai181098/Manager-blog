@@ -8,10 +8,13 @@ import java.util.List;
 public interface BlogService {
     Page<Blog> getBlogs(Integer page, Integer pageSize);
 
+    Page<Blog> getAllBlog(Integer page, Integer pageSize);
+
     List<Blog> searchBlog(String title);
 
     Blog getDetailBlog(String slug);
 
     List<Blog> getBlogsByCategoryName(String name);
 
+    long countBlogsByStatus(Boolean status);
 }

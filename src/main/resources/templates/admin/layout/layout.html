@@ -21,16 +21,15 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="/admin/dist/css/adminlte.min.css" />
 
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
-
     <!-- custom css -->
+    <link rel="stylesheet" href="/css/custom.css">
+
     <th:block th:replace="${css} ?: ~{}"></th:block>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <th:block th:replace="~{/admin/fragments/navbar :: navbar(user = ${user})}"></th:block>
+        <th:block th:replace="~{/admin/fragments/navbar :: navbar(${user})}"></th:block>
 
         <!-- Main Sidebar Container -->
         <th:block th:replace="~{/admin/fragments/sidebar :: sidebar}"></th:block>
@@ -38,6 +37,8 @@
         <!--content-->
         <th:block th:replace="${content} ?: ~{}"></th:block>
 
+        <!-- footer -->
+        <th:block th:replace="~{/admin/fragments/footer :: footer}"></th:block>
     </div>
 
     <!-- jQuery -->
@@ -46,12 +47,12 @@
     <!-- Bootstrap 4 -->
     <script src="admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- overlayScrollbars -->
-    <script src="admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="admin/dist/js/adminlte.js"></script>
 
     <!--custom js-->
+    <script src="/js/custom.js"></script>
+
     <th:block th:replace="${js} ?: ~{}"></th:block>
 </body>
 </html>

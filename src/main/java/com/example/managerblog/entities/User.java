@@ -21,7 +21,7 @@ public class User extends BaseObject {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "avatar")
+    @Column(name = "avatar" , columnDefinition = "text")
     private String avatar;
 
     @Column(name = "password")

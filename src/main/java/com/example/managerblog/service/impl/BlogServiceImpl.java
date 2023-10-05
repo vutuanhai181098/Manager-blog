@@ -19,10 +19,17 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private BlogRepository blogRepository;
 
+
     @Override
     public Page<Blog> getBlogs(Integer page, Integer pageSize) {
         Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by("publishedAt").descending());
         return blogRepository.findByStatusTrue(pageable);
+    }
+
+    @Override
+    public Page<Blog> getAllBlog(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by("publishedAt").descending());
+        return blogRepository.findAll(pageable);
     }
 
     @Override
@@ -41,4 +48,10 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> getBlogsByCategoryName(String name) {
         return blogRepository.findByCategoryName(name);
     }
+
+    @Override
+    public long countBlogsByStatus(Boolean status) {
+        return blogRepository.countBlogByStatus(status);
+    }
+
 }

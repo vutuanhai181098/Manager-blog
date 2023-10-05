@@ -5,4 +5,6 @@ import com.example.managerblog.request.LoginRequest;
 
 public interface UserService {
     UserDto checkLoginAdmin(LoginRequest request);
+
+    long countMember();
 }

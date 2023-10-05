@@ -28,4 +28,6 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
        """)
     List<Blog> findByCategoryName(String name);
     Optional<Blog> findBySlugAndStatusTrue(String slug);
+
+    long countBlogByStatus(Boolean status);
 }

@@ -1,13 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{/admin/layout/layout :: admin-layout(~{:: title}, ~{:: #css}, ~{:: #content}, ~{:: #js})}">
+    th:replace="~{/admin/layout/layout :: admin-layout(~{:: title}, ~{}, ~{:: #content}, ~{:: #js})}">
 <head>
     <meta charset="UTF-8">
     <title>Admin | Kong's Blog</title>
 </head>
 <body>
 <th:block id="content">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Thống kê</li>
+                        </ol>
+                    </div>
+                    <div class="col-sm-6 d-flex align-items-center justify-content-end show-time">
+                        <span style="letter-spacing: .05em"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.content-header -->
 
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-blog"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Bài viết đã công khai</span>
+                                <span class="info-box-number" th:text="${blogPublic}">
+                                        10
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-pen"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Bài viết chưa công khai</span>
+                                <span class="info-box-number" th:text="${blogPrivate}">
+                                        10
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Thành viên</span>
+                                <span class="info-box-number" th:text="${countMember}">
+                                        10
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
 </th:block>
+
 </body>
 </html>
