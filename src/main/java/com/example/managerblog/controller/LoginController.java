@@ -36,6 +36,9 @@ public class LoginController {
 
     @GetMapping("")
     public String getAdminPage(Model model, HttpSession session){
+        if (session.getAttribute("user") == null){
+            return "redirect:/admin/login";
+        }
         UserDto userDto = (UserDto) session.getAttribute("user");
         long blogPublic = blogService.countBlogsByStatus(Boolean.TRUE);
         long blogPrivate = blogService.countBlogsByStatus(Boolean.FALSE);

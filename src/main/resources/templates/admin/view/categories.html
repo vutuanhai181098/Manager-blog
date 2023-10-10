@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/admin/layout/layout :: admin-layout(~{:: title}, ~{}, ~{:: #content}, ~{:: #js})}">
 <head>
     <meta charset="UTF-8">
     <title>Tất cả danh mục</title>
@@ -31,94 +32,40 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-9">
-                        <a href="/admin/create-blog" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary btn-create">
                             <i class="nav-icon fas fa-plus"></i>
                             <span class="pl-1">Tạo danh mục</span>
+                        </button>
+                        <a href="/admin/categories" class="btn btn-secondary">
+                            <i class="nav-icon fas fa-redo"></i>
+                            <span class="pl-1">Refresh</span>
                         </a>
-                        <a href="" class="btn btn-secondary btn-copy">
-                            <i class="nav-icon fas fa-copy"></i>
-                            <span class="pl-1">Refe</span>
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <form action="">
-                            <div class="input-group">
-                                <input type="search" class="form-control search-blog" placeholder="Bạn cần tìm gì?">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary btn-search">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col-12">
+                    <div class="col-6">
                         <div class="blog-list">
-                            <div class="row d-flex justify-content-between mb-3">
-                                <div class="col-3">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Số lượng hiển
-                                                thị</label>
-                                        </div>
-                                        <select class="custom-select" id="inputGroupSelect01">
-                                            <option value="5">5</option>
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect02">Trạng thái</label>
-                                        </div>
-                                        <select class="custom-select" id="inputGroupSelect02">
-                                            <option selected>Chọn trạng thái</option>
-                                            <option value="0">Nháp</option>
-                                            <option value="1">Công khai</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
                             <table class="table table-hover custom-table">
                                 <thead>
                                 <tr class="text-white">
                                     <th scope="col">ID</th>
-                                    <th scope="col">Tiêu đề</th>
-                                    <th scope="col">Tác giả</th>
-                                    <th scope="col">Danh mục</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Ngày tạo</th>
+                                    <th scope="col">Tên danh mục</th>
+                                    <th scope="col">Số bài viết áp dụng</th>
+                                    <th scope="col"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="blog : ${blogPage.getContent()}">
-                                    <td th:text="${blog.id}">1</td>
+                                <tr th:each="category : ${categories}">
+                                    <td th:text="${category.id}"></td>
+                                    <td th:text="${category.name}"></td>
+                                    <td th:text="${category.used}"></td>
                                     <td>
-                                        <a th:href="@{/admin/blogs/{id}/{slug} (id = ${blog.id}, slug = ${blog.slug})}" th:text="${blog.title}"></a>
+                                        <button class="btn btn-warning btn-edit">Sửa</button>
+                                        <button class="btn btn-danger btn-delete">Xóa</button>
                                     </td>
-                                    <td>
-                                        <a th:href="@{/admin/users/{id} (id = ${blog.user.id})}" th:text="${blog.user.name}">John Doe</a>
-                                    </td>
-                                    <td>
-                                        <span th:each="category : ${blog.categories}"
-                                              th:text="${category.name}"
-                                              class="badge badge-success mr-1 p-2"
-                                        ></span>
-                                    </td>
-                                    <td th:text="${blog.status ? 'Công khai' : 'Nháp'}"></td>
-                                    <td th:text="${#temporals.format(blog.createdAt, 'dd-MM-YYYY')}">06-07-2022</td>
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="render-pagination d-flex justify-content-between">
-                            <span><i>Số lượng bài viết :</i> <span th:text="${blogPage.totalElements}" class="h5">1</span></span>
-                            <ul class="pagination"></ul>
                         </div>
                     </div>
                 </div>
@@ -126,7 +73,119 @@
         </section>
     </div>
     <!-- /.content-wrapper -->
+    <!-- Modal-->
+    <div class="modal fade" id="modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" placeholder="Tên danh mục mới ...">
+                </div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary btn-save">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </th:block>
+<th:block id="js">
+    <script>
+        const $modalTitle = $('.modal-title');
+        const $modalInput = $('.modal-body input');
+        const $btnSave = $('.btn-save');
 
+        // Tạo danh mục
+        const $btnCreate = $('.btn-create');
+        $btnCreate.on('click', () => {
+            $modalTitle.text("Tạo danh mục");
+            $('#modal').modal('show');
+            $btnSave.on('click', () => {
+                const name = $modalInput.val().trim();
+                if(name !== ''){
+                    let data = {
+                        name : name
+                    }
+                    // Call Api
+                    $.ajax({
+                        url: '/api/v1/categories',
+                        method: 'POST',
+                        data: data,
+                        success: (res) => {
+                            console.log(res)
+                        },
+                        error: (err) => {
+                            console.log(err)
+                        }
+                    });
+                } else {
+                    Notification2.fire({
+                        title: 'Tên danh mục không được để trống'
+                    });
+                }
+            })
+        });
+
+        // Sửa danh mục
+        const $btnEdit = $('.btn-edit');
+        $btnEdit.on('click', () => {
+            $modalTitle.text("Sửa danh mục");
+            const $parentTr = $btnEdit.closest('tr');
+            const id = $parentTr.find('td:nth-child(1)').text();
+            const oldName = $parentTr.find('td:nth-child(2)').text();
+            $modalInput.text(oldName);
+            $('#modal').modal('show');
+            $btnSave.on('click', () => {
+                const name = $modalInput.val().trim();
+                if(name !== ''){
+                    let data = {
+                        name : name
+                    }
+                    // Call Api
+                    $.ajax({
+                        url: `/api/v1/categories/${id}`,
+                        method: 'POST',
+                        data: data,
+                        success: (res) => {
+                            console.log(res)
+                        },
+                        error: (err) => {
+                            console.log(err)
+                        }
+                    });
+                } else {
+                    Notification2.fire({
+                        title: 'Tên danh mục không được để trống'
+                    });
+                }
+            })
+        })
+
+        // Xóa danh mục
+        const $btnDelete = $('.btn-delete');
+        $btnDelete.on('click', () => {
+            const $parentTr = $btnDelete.closest('tr');
+            const id = $parentTr.find('td:nth-child(1)').text();
+            $.ajax({
+                url: `/api/v1/categories/${id}`,
+                method: 'DELETE',
+                success: (res) => {
+                    Notification1.fire({
+                        icon: 'success',
+                        title: 'Xóa thành công'
+                    })
+                },
+                error: (err) => {
+                    console.log(err)
+                }
+            });
+        })
+    </script>
+</th:block>
 </body>
 </html>

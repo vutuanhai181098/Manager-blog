@@ -23,19 +23,6 @@ const showTime = () => {
 
 setInterval(showTime, 1000);
 
-// active navbar
-const activeNavbar = () => {
-    const navbarItemEls = document.querySelectorAll('.navbar a.nav-link');
-    let path = window.location.pathname;
-    console.log(path)
-    navbarItemEls.forEach(item => {
-        if (item.getAttribute('href') === path){
-            item.classList.add('active')
-        }
-    })
-}
-activeNavbar();
-
 // pagination
 function pagination(currentPage, totalPage){
     let current = currentPage,
@@ -67,3 +54,41 @@ function pagination(currentPage, totalPage){
     }
     return rangeWithDots;
 }
+// custom notification
+const Notification1 = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1000,
+    timerProgressBar: true,
+});
+
+const Notification2 = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: true
+});
+// custom confirm
+const Confirm = Swal.mixin({
+    position: 'top',
+    showCancelButton: true,
+    reverseButtons: true,
+    buttonsStyling: false,
+    customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+    }
+})
+
+// active navbar
+const activeNavbar = () => {
+    const navbarItemEls = document.querySelectorAll('.navbar a.nav-link');
+    let path = window.location.pathname;
+    console.log(path)
+    navbarItemEls.forEach(item => {
+        if (item.getAttribute('href') === path){
+            item.classList.add('active')
+        }
+    })
+}
+activeNavbar();
