@@ -84,7 +84,6 @@ const Confirm = Swal.mixin({
 const activeNavbar = () => {
     const navbarItemEls = document.querySelectorAll('.navbar a.nav-link');
     let path = window.location.pathname;
-    console.log(path)
     navbarItemEls.forEach(item => {
         if (item.getAttribute('href') === path){
             item.classList.add('active')
@@ -92,3 +91,43 @@ const activeNavbar = () => {
     })
 }
 activeNavbar();
+
+
+// function copy data table to clipboard
+function copyDataTableToClipboard(tableId) {
+   const tableEl = document.getElementById(tableId);
+   let tableData = "";
+
+    // Lặp qua từng row trong bảng
+
+    for(let i = 0; i < tableEl.rows.length; i++){
+        let rowData = [];
+        let row = tableEl.rows[i];
+
+        // Lặp qua từng cell trong bảng
+        for(let j = 0; j < row.cells.length; j++){
+            let cell = row.cells[j];
+            rowData.push(cell.innerText);
+        }
+
+        // Ghép các giá trị của ô thành một dòng dữ liệu
+        let rowText = rowData.join("\t");
+        tableData += rowText + "\n";
+    }
+
+    // Tạo một phần tử tạm thời (temporary element)
+    let tempElement = document.createElement("textarea");
+    tempElement.value = tableData;
+
+    // Gắn phần tử tạm thời vào body để có thể lấy giá trị
+    document.body.appendChild(tempElement);
+
+    // Chọn và sao chép giá trị trong phần tử tạm thời vào clipboard
+    tempElement.select();
+    document.execCommand("copy");
+
+    // Xóa phần tử tạm thời khỏi body
+    document.body.removeChild(tempElement);
+
+    console.log("Hello")
+}

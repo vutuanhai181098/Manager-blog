@@ -29,7 +29,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <th:block th:replace="~{/admin/fragments/navbar :: navbar(${user})}"></th:block>
+        <th:block th:replace="~{/admin/fragments/navbar :: navbar}"></th:block>
 
         <!-- Main Sidebar Container -->
         <th:block th:replace="~{/admin/fragments/sidebar :: sidebar}"></th:block>
@@ -45,7 +45,7 @@
     <script src="/admin/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap 4 -->
-    <script src="admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Link SweetAlert2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.28/sweetalert2.min.js"
@@ -53,7 +53,7 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- AdminLTE App -->
-    <script src="admin/dist/js/adminlte.js"></script>
+    <script src="dist/js/adminlte.js"></script>
 
     <!--custom js-->
     <script src="/js/custom.js"></script>

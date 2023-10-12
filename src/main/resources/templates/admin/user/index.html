@@ -36,14 +36,14 @@
                             <i class="nav-icon fas fa-plus"></i>
                             <span class="pl-1">Tạo user</span>
                         </a>
-                        <a href="" class="btn btn-secondary">
+                        <a type="button" class="btn btn-secondary btn-copy">
                             <i class="nav-icon fas fa-copy"></i>
                             <span class="pl-1">Sao chép</span>
                         </a>
-                        <a href="" class="btn btn-info  ">
+                        <button class="btn btn-info" onclick="window.print()">
                             <i class="nav-icon fas fa-print"></i>
                             <span class="pl-1">Print</span>
-                        </a>
+                        </button>
                         <a href="" class="btn btn-success">
                             <i class="nav-icon fas fa-file-excel"></i>
                             <span class="pl-1">Xuất Excel</span>
@@ -70,7 +70,7 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="blog-list">
-                            <table class="table table-hover custom-table">
+                            <table id="user-table" class="table table-hover custom-table">
                                 <thead>
                                 <tr class="text-white">
                                     <th scope="col">ID</th>
@@ -78,35 +78,68 @@
                                     <th scope="col">Email</th>
                                     <th scope="col">Bài viết</th>
                                     <th scope="col">Roles</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Ngày tạo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
+                                <tr th:each="user : ${users.getContent()}">
+                                    <td th:text="${user.id}"></td>
                                     <td>
-                                        <a href="/detail-user.html">Vũ Tuấn Hải</a>
+                                        <a th:href="@{/admin/users/{id}/detail (id = ${user.id})}"
+                                           th:text="${user.name}"></a>
                                     </td>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.totalBlogs}"></td>
                                     <td>
-                                        vutuanhai@gmail.com
+                                        <span th:each="role : ${user.roles}"
+                                              th:text="${role.name}"
+                                              class="badge badge-success"
+                                        ></span>
                                     </td>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>offline</td>
-                                    <td>06-07-2022</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="pagination"></div>
+                        <div id="pagination" class="d-flex justify-content-center">
+                            <ul class="pagination"></ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
     <!-- /.content-wrapper -->
+</th:block>
+
+<th:block id="js">
+    <script th:inline="javascript">
+        const page = [[${users}]];
+        const currentPage = [[${currentPage}]]
+
+        // pagination
+        function renderPagination(currentPage, totalPage){
+            const page = pagination(currentPage, totalPage);
+            let html = `<li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+                <a class="page-link" href="${currentPage - 1 === 1 ? "/admin/users" : `/admin/users?page=${currentPage - 1}`}" aria-label="Previous" onclick="renderPagination(${currentPage - 1}, ${totalPage})">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>`;
+            for (const i of page) {
+                html += `<li class="page-item ${currentPage === i ? "active" : ""}"><a class="page-link" href="${i === 1 ? "/admin/users" : `/admin/users?page=${i}`}" onclick="renderPagination(${i}, ${totalPage})">${i}</a></li>`
+            }
+            html += `<li class="page-item ${currentPage === totalPage ? "disabled" : ""}">
+            <a class="page-link" href="/admin/users?page=${currentPage + 1}" aria-label="Next" onclick="renderPagination(${currentPage + 1}, ${totalPage})">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>`
+            $(".pagination").html(html);
+        }
+        renderPagination(currentPage, page.totalPages);
+
+        // copy data table
+        $('.btn-copy').on('click', function(){
+            copyDataTableToClipboard("user-table")
+        });
+    </script>
 </th:block>
 </body>
 </html>

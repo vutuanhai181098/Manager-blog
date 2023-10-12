@@ -57,8 +57,8 @@ public class AdminController {
                               @RequestParam(defaultValue = "10") Integer pageSize,
                               Model model){
         Page<UserDto> userDtoPage = userService.getAllUser(page, pageSize);
+        model.addAttribute("currentPage", page);
         model.addAttribute("users", userDtoPage);
-        model.addAttribute("user", new User());
         return "admin/user/index";
     }
 }

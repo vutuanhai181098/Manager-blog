@@ -17,10 +17,8 @@ public class UserMapperImpl implements UserMapper {
                 .name(user.getName())
                 .email(user.getEmail())
                 .avatar(user.getAvatar())
+                .totalBlogs((long) user.getBlogs().size())
                 .roles(user.getRoles())
-                .active(user.getActive())
-                .active(user.getLocked())
-                .createAt(user.getCreatedAt())
                 .build();
     }
 }

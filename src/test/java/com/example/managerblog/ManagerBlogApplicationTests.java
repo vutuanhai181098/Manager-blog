@@ -32,8 +32,7 @@ class ManagerBlogApplicationTests {
     void save_roles() {
         List<Role> roles = List.of(
                 new Role("ADMIN"),
-                new Role("USER"),
-                new Role("AUTHOR")
+                new Role("USER")
         );
         roleRepository.saveAll(roles);
     }
@@ -43,14 +42,13 @@ class ManagerBlogApplicationTests {
         Faker faker = new Faker();
         Role userRole = roleRepository.findByName("USER").orElse(null);
         Role adminRole = roleRepository.findByName("ADMIN").orElse(null);
-        Role authorRole = roleRepository.findByName("AUTHOR").orElse(null);
 
         List<User> users = List.of(
-                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(adminRole)),
-                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(authorRole, userRole)),
-                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(authorRole, userRole)),
-                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(authorRole, userRole)),
-                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(authorRole, userRole))
+                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(adminRole), new ArrayList<>()),
+                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(userRole), new ArrayList<>()),
+                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(userRole), new ArrayList<>()),
+                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(userRole), new ArrayList<>()),
+                new User(faker.name().lastName(), faker.internet().emailAddress(), faker.avatar().image(), faker.internet().password(), List.of(userRole), new ArrayList<>())
         );
         userRepository.saveAll(users);
 
@@ -60,7 +58,8 @@ class ManagerBlogApplicationTests {
                     faker.internet().emailAddress(),
                     faker.avatar().image(),
                     faker.internet().password(),
-                    List.of(userRole));
+                    List.of(userRole),
+                    new ArrayList<>());
             userRepository.save(user);
         }
     }
@@ -74,7 +73,8 @@ class ManagerBlogApplicationTests {
                 "admin@gmail.com",
                 null,
                 "admin",
-                List.of(adminRole));
+                List.of(adminRole),
+                new ArrayList<>());
         userRepository.save(user);
     }
     @Test
@@ -132,7 +132,7 @@ class ManagerBlogApplicationTests {
         Slugify slugify = Slugify.builder().build();
         Random rd = new Random();
 
-        List<User> userList = userRepository.findByRoles_NameIn(List.of("ADMIN", "AUTHOR"));
+        List<User> userList = userRepository.findByRoles_NameIn(List.of("ADMIN"));
         List<Category> categoryList = categoryRepository.findAll();
         User rdUser = userList.get(rd.nextInt(userList.size()));
 

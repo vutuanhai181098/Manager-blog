@@ -17,8 +17,7 @@ public class UserDto {
     private String name;
     private String email;
     private String avatar;
-    private Boolean active;
-    private Boolean locked;
-    private LocalDateTime createAt;
+
+    private Long totalBlogs;
     private List<Role> roles;
 }
