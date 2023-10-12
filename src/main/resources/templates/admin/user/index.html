@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{/admin/layout/layout :: admin-layout(~{:: title}, ~{}, ~{:: #content}, ~{:: #js})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách User</title>
+</head>
+<body>
+<th:block id="content">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Danh sách user</li>
+                        </ol>
+                    </div>
+                    <div class="col-sm-6 d-flex align-items-center justify-content-end show-time">
+                        <span>Thời gian</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-9">
+                        <a href="/admin/users/create" class="btn btn-primary">
+                            <i class="nav-icon fas fa-plus"></i>
+                            <span class="pl-1">Tạo user</span>
+                        </a>
+                        <a href="" class="btn btn-secondary">
+                            <i class="nav-icon fas fa-copy"></i>
+                            <span class="pl-1">Sao chép</span>
+                        </a>
+                        <a href="" class="btn btn-info  ">
+                            <i class="nav-icon fas fa-print"></i>
+                            <span class="pl-1">Print</span>
+                        </a>
+                        <a href="" class="btn btn-success">
+                            <i class="nav-icon fas fa-file-excel"></i>
+                            <span class="pl-1">Xuất Excel</span>
+                        </a>
+                        <a href="" class="btn btn-warning">
+                            <i class="nav-icon fas fa-file-pdf"></i>
+                            <span class="pl-1">Xuất PDF</span>
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <form id="search-user">
+                            <div class="input-group">
+                                <input type="search" class="form-control"
+                                       placeholder="Bạn cần tìm gì?">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary btn-search-user">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="blog-list">
+                            <table class="table table-hover custom-table">
+                                <thead>
+                                <tr class="text-white">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Họ và tên</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Bài viết</th>
+                                    <th scope="col">Roles</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Ngày tạo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <a href="/detail-user.html">Vũ Tuấn Hải</a>
+                                    </td>
+                                    <td>
+                                        vutuanhai@gmail.com
+                                    </td>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>offline</td>
+                                    <td>06-07-2022</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+</th:block>
+</body>
+</html>

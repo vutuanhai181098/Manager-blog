@@ -26,27 +26,27 @@ public class LoginController {
     public String getLoginPage(){
         return "admin/view/login";
     }
-
-    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String processLogin(LoginRequest request, HttpSession session){
-        UserDto userDto = userService.checkLoginAdmin(request);
-        session.setAttribute("user", userDto);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("")
-    public String getAdminPage(Model model, HttpSession session){
-        if (session.getAttribute("user") == null){
-            return "redirect:/admin/login";
-        }
-        UserDto userDto = (UserDto) session.getAttribute("user");
-        long blogPublic = blogService.countBlogsByStatus(Boolean.TRUE);
-        long blogPrivate = blogService.countBlogsByStatus(Boolean.FALSE);
-        long countMember = userService.countMember();
-        model.addAttribute("user", userDto);
-        model.addAttribute("blogPublic", blogPublic);
-        model.addAttribute("blogPrivate", blogPrivate);
-        model.addAttribute("countMember", countMember);
-        return "admin/view/home-page";
-    }
+//
+//    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//    public String processLogin(LoginRequest request, HttpSession session){
+//        UserDto userDto = userService.checkLoginAdmin(request);
+//        session.setAttribute("user", userDto);
+//        return "redirect:/admin";
+//    }
+//
+//    @GetMapping("")
+//    public String getAdminPage(Model model, HttpSession session){
+//        if (session.getAttribute("user") == null){
+//            return "redirect:/admin/login";
+//        }
+//        UserDto userDto = (UserDto) session.getAttribute("user");
+//        long blogPublic = blogService.countBlogsByStatus(Boolean.TRUE);
+//        long blogPrivate = blogService.countBlogsByStatus(Boolean.FALSE);
+//        long countMember = userService.countMember();
+//        model.addAttribute("user", userDto);
+//        model.addAttribute("blogPublic", blogPublic);
+//        model.addAttribute("blogPrivate", blogPrivate);
+//        model.addAttribute("countMember", countMember);
+//        return "admin/view/home-page";
+//    }
 }

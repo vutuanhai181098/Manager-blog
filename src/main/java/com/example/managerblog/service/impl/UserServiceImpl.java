@@ -7,9 +7,11 @@ import com.example.managerblog.mapper.UserMapper;
 import com.example.managerblog.repositories.UserRepository;
 import com.example.managerblog.request.LoginRequest;
 import com.example.managerblog.service.UserService;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,5 +39,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public long countMember() {
         return userRepository.count();
+    }
+
+    @Override
+    public Page<UserDto> getAllUser(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id"));
+        Page<User> userPage = userRepository.findAll(pageable);
+        List<UserDto> userDtos = userPage.getContent().stream().map(userMapper::mapToDto).toList();
+        return new PageImpl<>(userDtos, pageable, userPage.getTotalElements());
     }
 }
